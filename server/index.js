@@ -5,6 +5,7 @@ import cors from "cors";
 
 import userRouter from "./routes/user.js";
 import chatRouter from "./routes/chat.js";
+import resumeRouter from "./routes/resume.js";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 app.use('/user',userRouter);
 app.use('/chat',chatRouter);
+app.use('/resume',resumeRouter);
 
 const CONNECTION_URL =
   "mongodb+srv://aswanth2022:aswanth123@ccsitdb.hi8na.mongodb.net/?retryWrites=true&w=majority";

@@ -16,9 +16,10 @@ import Profile from "./components/Profile/Profile";
 import VideoStream from "./components/VideoConference/VideoStream/VideoStream";
 import Join from "./components/VideoConference/ConferenceJoin/Join";
 import ChatRoom from "./components/ChatRoom/ChatRoom";
+import AddResume from "./components/AddResume/AddResume";
+import Hire from "./components/Hire/Hire";
 
 import { RoomProvider } from "./context/socketContext";
-import AddResume from "./components/AddResume/AddResume";
 
 function App() {
   const [loginedUser, setLoginedUser] = useState(false);
@@ -74,6 +75,7 @@ function App() {
             <Route path="/videoconference/join" element={<Join />} />
             <Route path="/chatroom" element={<ChatRoom />} />
             <Route path="/add-resume" element={<AddResume />} />
+            <Route path="/hire" element={<Hire />} />
           </Routes>
         </RoomProvider>
       </Router>

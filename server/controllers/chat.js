@@ -2,7 +2,6 @@ import user from "../models/user.js";
 import chat from "../models/chat.js";
 
 export const loadContacts=async(req,res)=>{
-    // console.log("hiii");
 
     const userId=req.userId;
     let contacts;
@@ -11,7 +10,6 @@ export const loadContacts=async(req,res)=>{
         
         if(requestedUser.usertype === "student"){
             contacts= await user.find({usertype:"teacher"},{username:true,name:true,profilepic:true,_id:true});
-        // console.log(contacts);
         }
         if(requestedUser.usertype === "teacher"){
             contacts= await user.find({usertype:"student"},{username:true,name:true,profilepic:true,_id:true});
