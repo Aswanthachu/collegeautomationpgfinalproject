@@ -1,17 +1,20 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { Container} from '@mui/material';
 
 import NavBar from "./NavBar/NavBar";
-import StudentsList from './StudentsList/StudentsList';
+import StudentsListBox from './StudentsList/StudentsListBox';
 
 import useStyles from "./style";
 
 const Hire = () => {
   const classes=useStyles();
+
+  const [search,setSearch]=useState();
+
   return (
     <Container className={classes.styledMainContainer}>
-      <NavBar />
-      <StudentsList />
+      <NavBar setSearch={setSearch} search={search}/>
+      <StudentsListBox search={search}/>
     </Container>
   )
 }

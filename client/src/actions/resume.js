@@ -41,4 +41,13 @@ export const getResumeData=createAsyncThunk('resume/getResumeData',async()=>{
     }
 });
 
+export const getAllResume=createAsyncThunk('resume/getAllResume',async()=>{
+    try {
+        const {data} = await postAuthAxios.get(`${baseUrl}/resume/getallresume`);
+        return {data};
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 

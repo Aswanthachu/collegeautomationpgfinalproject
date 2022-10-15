@@ -2,7 +2,17 @@ import { makeStyles } from "@material-ui/core";
 import { alpha } from '@mui/material/styles';
 
 const useStyles=makeStyles((theme)=>({
-
+    appBar:{
+        display:"flex",
+        justifyContent:"center",
+        '&.MuiPaper-root':{
+            backgroundColor:"#906EE8",
+            height:"12%",
+            [theme.breakpoints.down('sm')]:{
+                height:"8%",
+            }
+        }
+    },
     search : {
         position: 'relative',
         borderRadius: theme.shape.borderRadius,

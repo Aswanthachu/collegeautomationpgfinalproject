@@ -48,24 +48,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-// const typing = keyframes`
-// 0% {
-//   width: 0
-
-// }
-// 90% {
-//   width: 0
-// }
-// 100% {
-//   width: 0
-// }
-// 30% {
-//   width:"17.27px"
-// }
-// 60%{
-//   width:"17.27px"
-// }
-// `;
 
 const useStyle = (theme) => ({
   messageConatiner: {
@@ -309,10 +291,6 @@ const MessageContanier = ({
     image: "",
   });
   const [messages, setMessages] = useState([]);
-
-  // const styledType =css`
-  //   animation: ${typing} 8s steps(4) infinite;
-  // `;
 
   const emojis = [
     "😃",

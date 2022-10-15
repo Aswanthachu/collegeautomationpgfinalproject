@@ -20,7 +20,7 @@ import OppentUser from "./OppentUser/OppentUser";
 import messengerWelcome from "../../images/messengerWelcome.svg";
 
 const ChatRoom = () => {
-  // const theme=useTheme();
+ 
   const [selectedContact,setSelectedContact]=useState(null);
   const [loginedUser, setLoginedUser] = useState("");
   const [activeUsers,setActiveUsers]=useState([]);
@@ -145,7 +145,6 @@ const onBackButtonEvent = (e) => {
 
 
   return (
-    // <ThemeProvider theme={theme}>
     <Container sx={styles.mainContainer}>
       <Paper sx={styles.mainPaper}>
         <ContactContainer selectedContact={selectedContact} setSelectedContact={setSelectedContact} loginedUser={loginedUser}/>
@@ -161,7 +160,6 @@ const onBackButtonEvent = (e) => {
         }
       </Paper>
     </Container>
-    // </ThemeProvider>
   );
 };
 

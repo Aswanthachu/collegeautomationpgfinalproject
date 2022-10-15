@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {resumeUpload,getResumeData} from "../actions/resume";
+import {resumeUpload,getResumeData, getAllResume} from "../actions/resume";
 
 const resumeSlice=createSlice({
     name:"resume",
     initialState:{
         resumeData:"",
-        message:""
+        message:"",
+        resumes:[],
     },
     reducers:{
         claerMessage:(state)=>{
@@ -29,6 +30,18 @@ const resumeSlice=createSlice({
             return{
                 ...state,
                 resumeData:data
+            }
+        },
+        [getAllResume.fulfilled]:(state,action)=>{
+            const {data}=action.payload.data;
+            const existingUser=state.resumes.some(r=>r.username === data.username);
+            if(!existingUser){
+                return{
+                    ...state,
+                    resumes:data
+                }
+            }else{
+                return state;
             }
         }
     }

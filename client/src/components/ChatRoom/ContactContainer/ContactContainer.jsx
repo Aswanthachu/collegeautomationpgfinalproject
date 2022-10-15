@@ -22,8 +22,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { loadContacts} from "../../../actions/chat";
 
-// import {useTheme,ThemeProvider} from "@mui/styles";
-
 const useStyle = (theme) => ({
   contactsContainer: {
     padding: "20px 0 20px 10px",
@@ -185,10 +183,8 @@ const ContactContainer = ({selectedContact,setSelectedContact,loginedUser}) => {
 
 
   return (
-    // <ThemeProvider theme={theme}>
     <Box sx={styles.contactsContainer}>
       <Box sx={styles.sideControlBox}>
-        {/* <Paper sx={styles.logoPaper}></Paper> */}
         <Avatar size="large" />
         <div style={styles.toggleAvatars}>
           <ButtonBase sx={styles.toggleButton}>
@@ -238,7 +234,6 @@ const ContactContainer = ({selectedContact,setSelectedContact,loginedUser}) => {
               <InputAdornment position='end'>
                 <IconButton
                   sx={styles.searchCloseButton}
-                  // aria-label='toggle password visibility'
                   onClick={handleSearchClose}
                 >
                   {search && <Close sx={{color:"#fff"}}/>}
@@ -263,7 +258,6 @@ const ContactContainer = ({selectedContact,setSelectedContact,loginedUser}) => {
         </Box>
       </Paper>
     </Box>
-    // </ThemeProvider>
   );
 };
 
