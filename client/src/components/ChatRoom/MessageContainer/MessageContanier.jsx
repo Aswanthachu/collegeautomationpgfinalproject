@@ -357,7 +357,6 @@ const MessageContanier = ({
   }, [message]);
 
   useEffect(() => {
-    // console.log("hiiii")
     scrollRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, selectedContact]);
 

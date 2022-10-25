@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { Dashboard, CastForEducation,VoiceChat,Backup,Error,LibraryBooks,UploadFile,Receipt,AssignmentInd } from "@mui/icons-material";
+import { Dashboard, CastForEducation,VoiceChat,Backup,Error,LibraryBooks,UploadFile,Receipt,AssignmentInd,PersonAdd } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -82,6 +82,7 @@ const teacherLists = [
   [<VoiceChat sx={{color: "#7962E1"}}/>, "ChatRoom", "/chatroom"],
   [<Backup sx={{color: "#7962E1"}}/>, "Study Materials", "/upload-study-materials"],
   [<Error sx={{color: "#7962E1"}}/>, "Instructions", "/student-instructions"],
+  [<PersonAdd sx={{color: "#7962E1"}}/>,"Add Students","/add-students" ]
 ];
 
 const studentLists=[
@@ -89,7 +90,7 @@ const studentLists=[
   [<CastForEducation sx={{color: "#7962E1"}}/>, "Join Webinar", "/videoconference/join"],
   [<VoiceChat sx={{color: "#7962E1"}}/>, "ChatRoom", "/chatroom"],
   [<LibraryBooks sx={{color: "#7962E1"}}/>, "Study Materials", "/upload-study-materials"],
-  [<UploadFile sx={{color: "#7962E1"}}/>, "Upload Resume", "/upload-resume"],
+  [<UploadFile sx={{color: "#7962E1"}}/>, "Upload Resume", "/add-resume"],
   [<Receipt sx={{color: "#7962E1"}}/>, "Fee Receipt", "/upload-fee"],
 ]
 

@@ -18,6 +18,7 @@ import Join from "./components/VideoConference/ConferenceJoin/Join";
 import ChatRoom from "./components/ChatRoom/ChatRoom";
 import AddResume from "./components/AddResume/AddResume";
 import Hire from "./components/Hire/Hire";
+import ManageStudents from "./components/MangeStudents/ManageStudents";
 
 import { RoomProvider } from "./context/socketContext";
 
@@ -76,6 +77,7 @@ function App() {
             <Route path="/chatroom" element={<ChatRoom />} />
             <Route path="/add-resume" element={<AddResume />} />
             <Route path="/hire" element={<Hire />} />
+            <Route path="/add-students" element={<ManageStudents />} />
           </Routes>
         </RoomProvider>
       </Router>

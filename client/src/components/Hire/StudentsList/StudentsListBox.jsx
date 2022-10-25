@@ -1,8 +1,11 @@
+import useStyles from './style';
+
 import React, { useState, useEffect } from 'react';
 import { Box, Paper, Grid } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
-import useStyles from './style';
 
 import StudentsList from './List/StudentsList';
 import StudentDescription from "./StudentDescription/StudentDescription";
@@ -12,6 +15,10 @@ import { getAllResume } from "../../../actions/resume";
 const StudentsListBox = ({ search }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const theme = useTheme();
+  const smallDevice = useMediaQuery(theme.breakpoints.down('md'));
+
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [resumeData, setResumeData] = useState(null);
@@ -37,8 +44,6 @@ const StudentsListBox = ({ search }) => {
     }
   }, [selectedItem])
 
-
-
   return (
     <Box className={classes.studentsBox} >
       <Paper className={classes.studentsPaper} elevation={0}>
@@ -53,22 +58,26 @@ const StudentsListBox = ({ search }) => {
           }
           {!selectedItem && search &&
             <Grid item xs={12} className={classes.studentsList__lg}>
-              {resumeData && resumeData?.filter(r => { return r?.username?.toLowerCase().includes(search) || r?.name?.toLowerCase().includes(search) || r?.position?.toLowerCase().includes(search) || r?.skills.some(s => s.toLowerCase().includes(search)) }).map(resume => (
+              {resumeData && resumeData
+              .filter(r => { return r?.username?.toLowerCase().includes(search) || r?.name?.toLowerCase().includes(search) || r?.position?.toLowerCase().includes(search) || r?.skills.some(s => s.toLowerCase().includes(search)) })
+              .map(resume => (
                 <StudentsList selectedItem={selectedItem} setSelectedItem={setSelectedItem} resume={resume} key={resume.userRef} />
               ))}
             </Grid>
           }
 
-          {selectedItem && !search &&
+          {!smallDevice && selectedItem && !search &&
             <Grid item xs={12} md={6} lg={8} className={classes.studentsList__lg}>
               {resumeData && resumeData.map(resume => (
                 <StudentsList selectedItem={selectedItem} setSelectedItem={setSelectedItem} resume={resume} key={resume.userRef} />
               ))}
             </Grid>
           }
-          {selectedItem && search &&
+          {!smallDevice && selectedItem && search &&
             <Grid item xs={12} md={6} lg={8} className={classes.studentsList__lg}>
-              {resumeData && resumeData.filter(r => { return r?.username?.toLowerCase().includes(search) || r?.name?.toLowerCase().includes(search) || r?.position?.toLowerCase().includes(search) || r?.skills.some(s => s.toLowerCase().includes(search)) }).map(resume => (
+              {resumeData && resumeData
+              .filter(r => { return r?.username?.toLowerCase().includes(search) || r?.name?.toLowerCase().includes(search) || r?.position?.toLowerCase().includes(search) || r?.skills.some(s => s.toLowerCase().includes(search)) })
+              .map(resume => (
                 <StudentsList selectedItem={selectedItem} setSelectedItem={setSelectedItem} resume={resume} key={resume.userRef} />
               ))}
             </Grid>

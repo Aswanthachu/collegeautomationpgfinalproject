@@ -1,26 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { signUp, signIn, updateProfile,requestOtp,verifyOtp,verifyPassword } from "../actions/user.js";
+import { signUp, signIn, updateProfile, requestOtp, verifyOtp, verifyPassword, searchUser, userAction } from "../actions/user.js";
 
 const userSlice = createSlice({
   name: "user",
   initialState: {
     userData: "",
     message: "",
-    userId:"",
+    userId: "",
     successMessage: "",
-    errorMessage:"",
+    errorMessage: "",
     profileSnackBar: false,
-    loginTry:false,
-    smsHash:"",
-    userType:{
+    loginTry: false,
+    smsHash: "",
+    userType: {
       student: false,
       teacher: false,
       staff: false,
       librarian: false,
       placement: false,
       hod: false,
-    }
+    },
+    actionType: {
+      add: false,
+      remove: false,
+      edit: false
+    },
+    searchedUser: ""
   },
   reducers: {
     Logout: (state) => {
@@ -28,15 +34,15 @@ const userSlice = createSlice({
       return {
         ...state,
         userData: "",
-        message:"",
-        userId:"",
+        message: "",
+        userId: "",
         successMessage: "",
-        errorMessage:"",
+        errorMessage: "",
         profileSnackBar: false,
-        loginTry:false,
-        smsHash:"",
-        token:"",
-        userType:{
+        loginTry: false,
+        smsHash: "",
+        token: "",
+        userType: {
           student: false,
           teacher: false,
           staff: false,
@@ -46,20 +52,20 @@ const userSlice = createSlice({
         }
       };
     },
-    setLoginTry:(state,action)=>{
+    setLoginTry: (state, action) => {
       console.log(action.payload);
-      const {value}=action.payload;
+      const { value } = action.payload;
       return {
         ...state,
-        loginTry:value
+        loginTry: value
       }
     },
-    setUserType:(state,action)=>{
+    setUserType: (state, action) => {
       console.log(action.payload);
-      const {name,value}=action.payload;
+      const { name, value } = action.payload;
       return {
         ...state,
-        userType:{
+        userType: {
           ...state.userType,
           student: false,
           teacher: false,
@@ -67,17 +73,38 @@ const userSlice = createSlice({
           librarian: false,
           placement: false,
           hod: false,
-          [name]:value
+          [name]: value
         }
       }
     },
-    closeUpdateSnackBar:(state)=>{
-      return{
+    closeUpdateSnackBar: (state) => {
+      return {
         ...state,
-        profileSnackBar:false,
-        successMessage:"",
-        errorMessage:"",
-        message:""
+        profileSnackBar: false,
+        successMessage: "",
+        errorMessage: "",
+        message: ""
+      }
+    },
+    setActionType: (state, action) => {
+      const { name } = action.payload;
+      return {
+        ...state,
+        actionType: {
+          ...state.actionType,
+          add: false,
+          remove: false,
+          edit: false,
+          [name]: true
+        }
+      }
+    },
+
+    // ######clear search
+    clearSearch: (state) => {
+      return {
+        ...state,
+        searchedUser: ""
       }
     }
   },
@@ -93,95 +120,133 @@ const userSlice = createSlice({
     },
     [signIn.fulfilled]: (state, action) => {
       console.log(action);
-      if(action.payload.message){
-        const {message}=action.payload;
-        return{
+      if (action.payload.message) {
+        const { message } = action.payload;
+        return {
           ...state,
-          message:message
+          message: message
         }
-      }else{
+      } else {
         const { result, token } = action.payload;
-      
+
         localStorage.setItem("user", JSON.stringify({ ...result }));
         localStorage.setItem("token", JSON.stringify({ token }));
         return {
           ...state,
           userData: { ...result },
           message: "",
-          token:token
+          token: token
         };
       }
     },
-    [updateProfile.fulfilled]:(state,action)=>{
-      const Data=action.payload.data;
-      const {data,message}=Data;
-      localStorage.setItem("user",JSON.stringify({...data}));
+    [updateProfile.fulfilled]: (state, action) => {
+      const Data = action.payload.data;
+      const { data, message } = Data;
+      localStorage.setItem("user", JSON.stringify({ ...data }));
       return {
         ...state,
-        userData:data,
-        successMessage:message,
-        profileSnackBar:true
+        userData: data,
+        successMessage: message,
+        profileSnackBar: true
       };
     },
-    [requestOtp.fulfilled]:(state,action)=>{
-      
-      const {hash,message,userId}=action.payload.data;
+    [requestOtp.fulfilled]: (state, action) => {
+
+      const { hash, message, userId } = action.payload.data;
 
       console.log(action.payload);
 
-      if(!hash){
-        return{
+      if (!hash) {
+        return {
           ...state,
-          errorMessage:message,
+          errorMessage: message,
         }
-      }else{
-        return{
+      } else {
+        return {
           ...state,
-          successMessage:message,
-          smsHash:hash,
-          userId:userId,
-          profileSnackBar:true
+          successMessage: message,
+          smsHash: hash,
+          userId: userId,
+          profileSnackBar: true
         }
       }
     },
-    [verifyOtp.fulfilled]:(state,action)=>{
-      const updatedData=action.payload;
-      const {message,status}=updatedData;
+    [verifyOtp.fulfilled]: (state, action) => {
+      const updatedData = action.payload;
+      const { message, status } = updatedData;
       console.log(message);
-      if(status){
-        return{
+      if (status) {
+        return {
           ...state,
-          smsHash:"",
-          successMessage:message,
-          profileSnackBar:true
+          smsHash: "",
+          successMessage: message,
+          profileSnackBar: true
         }
-      }else{
-        return{
+      } else {
+        return {
           ...state,
-          errorMessage:message,
+          errorMessage: message,
         }
       }
     },
-    [verifyPassword.fulfilled]:(state,action)=>{
-      const updatedData=action.payload;
-      const {message,status}=updatedData;
-      if(status){
-        return{
+    [verifyPassword.fulfilled]: (state, action) => {
+      const updatedData = action.payload;
+      const { message, status } = updatedData;
+      if (status) {
+        return {
           ...state,
-          successMessage:message,
-          profileSnackBar:true
+          successMessage: message,
+          profileSnackBar: true
+        }
+      } else {
+        return {
+          ...state,
+          errorMessage: message
+        }
+      }
+    },
+
+    // serach students or user
+    [searchUser.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      if (action.payload.message) {
+        const { message } = action.payload;
+        return {
+          ...state,
+          message: message
+        }
+      } else {
+        if (action.payload) {
+          const search = action.payload[0];
+          // console.log(search)
+          return {
+            ...state,
+            message: "",
+            searchedUser: search
+          }
+        }
+      }
+    },
+    [userAction.fulfilled]: (state, action) => {
+      
+      if(action.payload.message){
+        const {message}=action.payload;
+        return {
+          ...state,
+          successMessage:message
         }
       }else{
+        const errorMessage=action.payload;
         return{
           ...state,
-          errorMessage:message
+          errorMessage:errorMessage
         }
       }
     }
 
- }
+  }
 });
 
 export default userSlice.reducer;
 
-export const { Logout,setLoginTry,setUserType,closeUpdateSnackBar } = userSlice.actions;
+export const { Logout, setLoginTry, setUserType, closeUpdateSnackBar, setActionType, clearSearch } = userSlice.actions;

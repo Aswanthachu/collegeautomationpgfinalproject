@@ -5,25 +5,34 @@ import { Close } from "@mui/icons-material";
 import useStyles from './style';
 import StudentDetails from './StudentDetails';
 
-const StudentDescription = ({ selectedData,setSelectedItem }) => {
+const StudentDescription = ({ selectedData, setSelectedItem }) => {
     const classes = useStyles();
 
-    const handleClose=(e)=>{
+    const handleClose = (e) => {
         e.preventDefault();
         setSelectedItem(null);
-    }
+    };
+
+    function randomColor() {
+        let hex = Math.floor(Math.random() * 0xFFFFFF);
+        let color = "#" + hex.toString(16);
+    
+        return color;
+      }
 
     return (
         <Paper className={classes.studentDescriptionMain}>
             <Paper className={classes.studentDetailsPaper} elevation={0}>
-                <IconButton className={classes.closeButton} onClick={(e)=>handleClose(e)}>
-                    <Close sx={{color:"#000"}} />
+                <IconButton className={classes.closeButton} onClick={(e) => handleClose(e)}>
+                    <Close sx={{ color: "#000" }} />
                 </IconButton>
-                <Avatar className={classes.avatar} src={selectedData?.profilepic}>
-                    {
-                        selectedData?.name?.charAt(0)?.toUpperCase() ||
-                        selectedData?.username?.charAt(0)?.toUpperCase()
-                    }
+                <Avatar className={classes.avatar} src={selectedData?.profilepic} sx={{backgroundColor:randomColor()}}>
+                    <Typography variant="h2">
+                        {
+                            selectedData?.name?.charAt(0)?.toUpperCase() ||
+                            selectedData?.username?.charAt(0)?.toUpperCase()
+                        }
+                    </Typography>
                 </Avatar>
                 <div className={classes.studentDetailsHead}>
                     <Typography className={classes.studentDetailsName}>{selectedData?.name || selectedData?.username}</Typography>

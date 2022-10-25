@@ -15,7 +15,7 @@ export const RoomProvider=({children})=>{
     const [users,setUsers]=useState(null);
     const [stream,setStream]=useState(null);
 
-    const RoomId=JSON.parse(localStorage.getItem("RoomId"));
+    // const RoomId=JSON.parse(localStorage.getItem("RoomId"));
 
     console.log(users)
 

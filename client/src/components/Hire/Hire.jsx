@@ -19,4 +19,4 @@ const Hire = () => {
   )
 }
 
-export default Hire
+export default Hire;

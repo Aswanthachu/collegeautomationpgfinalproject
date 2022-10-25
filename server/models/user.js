@@ -25,7 +25,19 @@ const userSchema=mongoose.Schema({
     phone:{
         type:String,
         default:null
-    }
+    },
+    stream:{
+        type:String,
+        default:""
+    },
+    batch:[{
+        startYear:{
+            type:Date,
+        },
+        endYear:{
+            type:Date,
+        }
+    }]
 });
 
 const user=mongoose.model('user',userSchema);
